@@ -18,8 +18,31 @@
 
     </head>
     <body>
-        <main class="container">
+        <main class="container" ng-app="MoviesApp" ng-controller="MoviesController">
             <h1>Movies from 2014</h1>
+            <p>Currently showing {{movies.length}} {{1 === movies.length ? 'movie' : 'movies'}} sorted by {{sortCol}} {{sortReverse ? 'descending' : ''}}</p>
+            <table class="table">
+                <tr>
+                    <th ng-click= "sortBy('rank')" ng-class = "active: isSortedBy('rank')">Rank</th>
+                    <th ng-click= "sortBy('title')" g-class = "active: isSortedBy('title')">Title</th>
+                    <th ng-click= "sortBy('releaseDate')" g-class = "active: isSortedBy('')">Release Date</th>
+                    <th ng-click= "sortBy('studio')" g-class = "active: isSortedBy('')">Studio</th>
+                    <th ng-click= "sortBy('genre')" g-class = "active: isSortedBy('')">Genre</th>
+                    <th ng-click= "sortBy('rating')" g-class = "active: isSortedBy('')">Rating</th>
+                    <th ng-click= "sortBy('grossSales')" g-class = "active: isSortedBy('')">Gross Sales</th>
+                    <th ng-click= "sortBy('ticketsSold')" g-class = "active: isSortedBy('')">Tickets Sold</th>
+                </tr>    
+                <tr ng-repeat="movie in movies | orderBy : sortCol : sortReverse">
+                    <td>{{movie.rank}}</td>
+                    <td>{{movie.title}}</td>
+                    <td>{{movie.releaseDate | date : 'shortDate'}}</td>
+                    <td>{{movie.studio}}</td>
+                    <td>{{movie.genre}}</td>
+                    <td>{{movie.rating}}</td>
+                    <td>{{movie.grossSales | currency : $ : 0}}</td>
+                    <td>{{movie.ticketsSold | number}}</td>
+                </tr>
+            </table>
 
         </main>
 
