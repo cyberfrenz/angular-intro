@@ -20,6 +20,7 @@
     <body>
         <main class="container" ng-app="MoviesApp" ng-controller="MoviesController">
             <h1>Movies from 2014</h1>
+            <p><input type="search" placeholder= "search for a title" class = "form-control" ng-model="titleSearch"/></p
             <p>Currently showing {{movies.length}} {{1 === movies.length ? 'movie' : 'movies'}} sorted by {{sortCol}} {{sortReverse ? 'descending' : ''}}</p>
             <table class="table">
                 <tr>
@@ -32,7 +33,7 @@
                     <th ng-click= "sortBy('grossSales')" g-class = "active: isSortedBy('')">Gross Sales</th>
                     <th ng-click= "sortBy('ticketsSold')" g-class = "active: isSortedBy('')">Tickets Sold</th>
                 </tr>    
-                <tr ng-repeat="movie in movies | orderBy : sortCol : sortReverse">
+                <tr ng-repeat="movie in filteredMovies= (movies | filter : {title: titleSearch} | orderBy : sortCol : sortReverse)">
                     <td>{{movie.rank}}</td>
                     <td>{{movie.title}}</td>
                     <td>{{movie.releaseDate | date : 'shortDate'}}</td>
